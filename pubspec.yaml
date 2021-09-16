@@ -26,6 +26,7 @@ dependencies:
 
   # FIREBASE
   firebase_analytics: ^8.3.2
+  firebase_core: ^1.6.0
   # UI
   cupertino_icons: ^1.0.2
 

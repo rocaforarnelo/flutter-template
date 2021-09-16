@@ -1,27 +1,26 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter_driver/flutter_driver.dart';
-import 'package:test/test.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
-void main() {
+Future<void> main() async {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() async {
+    await Firebase.initializeApp();
+  });
+
   group('Firebase Analytics', () {
-    late FlutterDriver driver;
-
-    setUpAll(() async {
-      driver = await FlutterDriver.connect();
-    });
-
-    tearDownAll(() async {
-      driver.close();
-    });
-
-    test('send custom event', () async {
+    testWidgets('send custom event', (WidgetTester tester) async {
       FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
 
       expect(
           await firebaseAnalytics
-              .logEvent(name: 'integration test event')
+              .logEvent(name: 'integration_test_event')
               .then((value) {
             return "1";
+          }).catchError((Object error) {
+            return "0";
           }),
           "1");
     });

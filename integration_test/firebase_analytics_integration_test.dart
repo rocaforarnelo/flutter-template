@@ -20,7 +20,7 @@ Future<void> main() async {
               .then((value) {
             return "1";
           }).catchError((Object error) {
-            return "0";
+            return error.toString();
           }),
           "1");
     });

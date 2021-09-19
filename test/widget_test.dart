@@ -1,30 +1,35 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
+import 'package:flutter_template/included_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_template/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  final String inlcudedInThisTemplate = 'Included in this template:';
+  testWidgets('Send custom event on next page test',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    expect(find.text('Welcome to F\'s Flutter Template'), findsOneWidget);
+    await tester.tap(find.text('Continue'));
     await tester.pump();
+    expect(find.text(inlcudedInThisTemplate), findsOneWidget);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('Center include page title test', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: IncludedPage()));
+    tester.getCenter(
+      find.text(inlcudedInThisTemplate),
+    );
+  });
+
+  testWidgets('To languages button on bottom right test',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: IncludedPage()));
+    expect(find.byType(IconButton), findsOneWidget);
+    expect(find.byIcon(Icons.language), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.language), warnIfMissed: true);
+    await tester.pump(Duration(milliseconds: 300));
+    await tester.pump(Duration(milliseconds: 300));
+    expect(find.text('Languages'), findsOneWidget);
   });
 }

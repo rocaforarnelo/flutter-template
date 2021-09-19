@@ -1,26 +1,36 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/included_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Add this
 
-  await Firebase.initializeApp().catchError((Object error) {
-    print('Failed to initialize firebase');
-  });
+  await Firebase.initializeApp();
 
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final FirebaseAnalytics analytics = FirebaseAnalytics();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(
+              title: 'Flutter Demo Home Page',
+            ),
+        '/included_page': (context) => IncludedPage()
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -35,22 +45,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late FirebaseAnalytics _firebaseAnalytics;
-
-  void initState() {
-    super.initState();
-    _firebaseAnalytics = FirebaseAnalytics();
-  }
-
-  int _counter = 0;
-
-  Future<void> _incrementCounter() async {
-    await _firebaseAnalytics.logEvent(name: 'Test Event');
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,19 +56,15 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'Welcome to F\'s Flutter Template',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).popAndPushNamed('/included_page');
+                },
+                child: Text('Continue'))
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

@@ -15,10 +15,20 @@ void main() {
     expect(find.text(inlcudedInThisTemplate), findsOneWidget);
   });
 
-  testWidgets('Center include page title', (WidgetTester tester) async {
+  testWidgets('Center include page title test', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: IncludedPage()));
     tester.getCenter(
       find.text(inlcudedInThisTemplate),
     );
+  });
+
+  testWidgets('To language button on bottom right Test',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: IncludedPage()));
+    expect(find.byType(IconButton), findsOneWidget);
+    expect(find.byIcon(Icons.language), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.language));
+    await tester.pump();
+    expect(find.text('Languages'), findsOneWidget);
   });
 }

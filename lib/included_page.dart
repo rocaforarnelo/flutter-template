@@ -4,8 +4,11 @@ class IncludedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [Text('Included in this template:')],
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [Text('Included in this template:')],
+        ),
       ),
     );
   }

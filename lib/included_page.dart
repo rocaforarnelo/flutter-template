@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/languages_page.dart';
 
 class IncludedPage extends StatelessWidget {
   @override
@@ -12,6 +13,21 @@ class IncludedPage extends StatelessWidget {
               Text(
                 'Included in this template:',
                 textAlign: TextAlign.center,
+              ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, right: 10),
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          opaque: false,
+                          pageBuilder: (context, animation, _) =>
+                              LanguagesPage()));
+                    },
+                    icon: Icon(
+                      Icons.language,
+                      color: Colors.black,
+                    )),
               )
             ],
           ),

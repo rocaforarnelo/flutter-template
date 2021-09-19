@@ -12,6 +12,16 @@ class IncludedPage extends StatelessWidget {
               Text(
                 'Included in this template:',
                 textAlign: TextAlign.center,
+              ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, right: 10),
+                child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.language,
+                      color: Colors.black,
+                    )),
               )
             ],
           ),

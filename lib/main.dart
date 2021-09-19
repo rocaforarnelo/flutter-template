@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.of(context).popAndPushNamed('included_page');
+                  Navigator.of(context).popAndPushNamed('/included_page');
                 },
                 child: Text('Continue'))
           ],

@@ -18,10 +18,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(
+              title: 'Flutter Demo Home Page',
+            ),
+        '/included_page': (context) => IncludedPage()
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -58,8 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => IncludedPage()));
+                  Navigator.of(context).popAndPushNamed('included_page');
                 },
                 child: Text('Continue'))
           ],

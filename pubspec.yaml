@@ -24,6 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #UTILS
+  easy_localization: ^3.0.0
   # FIREBASE
   firebase_analytics: ^8.3.2
   firebase_core: ^1.6.0

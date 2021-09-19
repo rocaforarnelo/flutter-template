@@ -6,9 +6,7 @@ import 'package:flutter_template/included_page.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Add this
 
-  await Firebase.initializeApp().catchError((Object error) {
-    print('Failed to initialize firebase');
-  });
+  await Firebase.initializeApp();
 
   runApp(MyApp());
 }

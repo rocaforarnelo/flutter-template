@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/included_page.dart';
@@ -12,10 +13,14 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final FirebaseAnalytics analytics = FirebaseAnalytics();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
       initialRoute: '/',
       routes: {
         '/': (context) => MyHomePage(
@@ -40,13 +45,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late FirebaseAnalytics _firebaseAnalytics;
-
-  void initState() {
-    super.initState();
-    _firebaseAnalytics = FirebaseAnalytics();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

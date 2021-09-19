@@ -22,13 +22,14 @@ void main() {
     );
   });
 
-  testWidgets('To language button on bottom right Test',
+  testWidgets('To languages button on bottom right test',
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: IncludedPage()));
     expect(find.byType(IconButton), findsOneWidget);
     expect(find.byIcon(Icons.language), findsOneWidget);
-    await tester.tap(find.byIcon(Icons.language));
-    await tester.pump();
+    await tester.tap(find.byIcon(Icons.language), warnIfMissed: true);
+    await tester.pump(Duration(milliseconds: 300));
+    await tester.pump(Duration(milliseconds: 300));
     expect(find.text('Languages'), findsOneWidget);
   });
 }
